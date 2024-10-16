@@ -13,5 +13,9 @@ This Telegram bot uses the Tinify API to compress images. Users can either uploa
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/tinify-telegram-bot.git
-   cd tinify-telegram-bot
+   git clone https://github.com/cybernobie/Image-Compressor-Bot.git
+   cd Image-Compressor-Bot
+   pip install -r requirements.txt
+   python bot.py
+
+-- !Don`t forgot to config vars in .env
