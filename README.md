@@ -18,4 +18,4 @@ This Telegram bot uses the Tinify API to compress images. Users can either uploa
    pip install -r requirements.txt
    python bot.py
 
--- !Don`t forgot to config vars in .env
+-- Note: Don`t forgot to config vars in .env
