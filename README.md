@@ -22,7 +22,7 @@ This Telegram bot uses the Tinify API to compress images. Users can either uploa
  
    [API_ID](https://my.telegram.org)<br>
    [API_HASH](https://my.telegram.org)<br>
-   [BOT_TOKEN](https://telegram.me/@botfather)<br>
+   [BOT_TOKEN](https://t.me/BotFather)<br>
    [API_ID](https://tinypng.com/developers)<br>
 ```bash
 -- Note: Don`t forgot to edit config vars in .env
