@@ -11,17 +11,6 @@ This Telegram bot uses the **Tinify API** to compress images. Users can either u
 
 ## 💻 Installation
 
-### 1. Clone the repository:
-```bash
-git clone https://github.com/cybernobie/Image-Compressor-Bot.git
-cd Image-Compressor-Bot
-pip install -r requirements.txt
-python bot.py
-```
-**Note:** Don’t forget to configure the variables in `.env`.
-
-### 2. Future Enhancements and Scope
-
 The bot has many potential enhancements that could increase its usability and flexibility:
 
 1. **🛠️ Image Quality and Resolution Options**: Allow users to specify the compression level or target file size and resolution.
