@@ -9,16 +9,24 @@ This Telegram bot uses the **Tinify API** to compress images. Users can either u
 - 💬 User-friendly messages.
 - ⚠️ Error handling and logging.
 
-## 💻 Installation
+## Installation
 
 ### Clone the repository:
+   ```bash
+   git clone https://github.com/cybernobie/Image-Compressor-Bot.git
+   cd Image-Compressor-Bot
+   pip install -r requirements.txt
+   python bot.py
+   ```
+### How to get .env variables:
+ 
+   [API_ID](https://my.telegram.org)<br>
+   [API_HASH](https://my.telegram.org)<br>
+   [BOT_TOKEN](https://t.me/BotFather)<br>
+   [TINIFY API_KEY ](https://tinypng.com/developers)<br>
 ```bash
-git clone https://github.com/cybernobie/Image-Compressor-Bot.git
-cd Image-Compressor-Bot
-pip install -r requirements.txt
-python bot.py
-```
 -- Note: Don`t forgot to edit config vars in .env
+```
 
 ### Future Enhancements and Scope
 
@@ -42,30 +50,30 @@ Thanks to all the wonderful people who have contributed to this project!
   <tr>
     <td align="center">
       <a href="https://github.com/cybernobie">
-        <img src="https://avatars.githubusercontent.com/cybernobie" width="100" height="100" style="border-radius:50%; object-fit: cover;" alt="cybernobie" />
+        <img src="https://avatars.githubusercontent.com/cybernobie" width="100" height="100" style="border-radius:50%; object-fit: cover;" alt="Aryan Singh Negi" />
         <br />
-        <sub><b>cybernobie</b></sub>
+        <sub><b>Aryan Singh Negi</b></sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/coding-destini">
         <img src="https://avatars.githubusercontent.com/coding-destini" width="100" height="100" style="border-radius:50%; object-fit: cover;" alt="coding-destini" />
         <br />
-        <sub><b>coding-destini</b></sub>
+        <sub><b>Akash Shah</b></sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/Ektaaa5656">
-        <img src="https://avatars.githubusercontent.com/Ektaaa5656" width="100" height="100" style="border-radius:50%; object-fit: cover;" alt="Ekta" />
+        <img src="https://avatars.githubusercontent.com/Ektaaa5656" width="100" height="100" style="border-radius:50%; object-fit: cover;" alt="Ekta Mishra" />
         <br />
-        <sub><b>Ekta</b></sub>
+        <sub><b>Ekta Mishra</b></sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/manshisingh07">
-        <img src="https://avatars.githubusercontent.com/manshisingh07" width="100" height="100" style="border-radius:50%; object-fit: cover;" alt="Manish" />
+        <img src="https://avatars.githubusercontent.com/manshisingh07" width="100" height="100" style="border-radius:50%; object-fit: cover;" alt="Manshi Singh" />
         <br />
-        <sub><b>Manish</b></sub>
+        <sub><b>Manshi Singh</b></sub>
       </a>
     </td>
   </tr>
