@@ -31,6 +31,5 @@ The bot has many potential enhancements that could increase its usability and fl
 5. **Image Preview**: Provide users with a preview of the compressed image to compare quality.
 
 ## Contributors
-Thanks to all the wonderful people who have contributed to this project!
 
-[![Contributors](https://img.shields.io/github/contributors/cybernobie/Image-Compressor-Bot?style=flat-square)](https://github.com/cybernobie/Image-Compressor-Bot/graphs/contributors)
+Thanks to all contributors!
