@@ -9,7 +9,7 @@ This Telegram bot uses the **Tinify API** to compress images. Users can either u
 - 💬 User-friendly messages.
 - ⚠️ Error handling and logging.
 
-## Installation
+## 💻 Installation
 
 ### Clone the repository:
    ```bash
