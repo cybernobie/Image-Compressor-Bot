@@ -1,0 +1,34 @@
+{
+  "name": "Image Compressor Bot",
+  "description": "A Telegram bot that compresses images using TinyPNG API and is deployable on Heroku.",
+  "repository": "https://github.com/Ashrafmdmatin41/Image-Compressor-Bot",
+  "env": {
+    "API_ID": {
+      "description": "API ID from Telegram",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "API Hash from Telegram",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Bot token from BotFather",
+      "required": true
+    },
+    "TINIFY_API_KEY": {
+      "description": "API key for TinyPNG",
+      "required": true
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  }
+}
