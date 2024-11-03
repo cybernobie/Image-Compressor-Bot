@@ -18,6 +18,10 @@
     "TINIFY_API_KEY": {
       "description": "API key for TinyPNG",
       "required": true
+    },
+    "MONGO_URI": {
+      "description": "MongoDB connection URI",
+      "required": true
     }
   },
   "buildpacks": [
