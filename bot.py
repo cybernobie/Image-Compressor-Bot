@@ -2,8 +2,9 @@ import os
 import logging
 import tinify
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from dotenv import load_dotenv
+from mongodb.mongodb import add_user, update_user_activity, get_user_activity
 
 # Load environment variables from .env file
 load_dotenv()
@@ -30,61 +31,53 @@ logger.info("Bot is starting...")
 # /start command
 @app.on_message(filters.command("start"))
 def start(client, message: Message):
+    user_id = message.from_user.id
+    add_user(user_id)
+    
     welcome_text = (
         "👋 Welcome to the Image Compressor Bot!\n"
         "I can help you compress images from a URL or by uploading a file.\n"
         "Just send me an image URL or upload an image file, and I'll do the rest! 📸"
     )
-    client.send_message(message.chat.id, welcome_text)
-    logger.info(f"Start command received from {message.from_user.id}.")
-
-# /help command
-@app.on_message(filters.command("help"))
-def help_command(client, message: Message):
-    help_text = (
-        "💡 Here are the commands you can use:\n"
-        "/start - Start the bot\n"
-        "/help - Show this help information\n"
-        "Just send an image URL or upload an image file, and I'll compress it for you! "
+    start_button = InlineKeyboardMarkup(
+        [[InlineKeyboardButton("Start Compressing", url="https://t.me/your_bot_username")]]
     )
-    client.send_message(message.chat.id, help_text)
-    logger.info(f"Help command received from {message.from_user.id}.")
+    client.send_message(message.chat.id, welcome_text, reply_markup=start_button)
+    logger.info(f"Start command received from {user_id}.")
 
 # Handle file uploads
 @app.on_message(filters.document)
 def handle_file(client, message: Message):
-    logger.info(f"Received file upload from {message.from_user.id}.")
-    # Notify the user about the received file
+    user_id = message.from_user.id
+    logger.info(f"Received file upload from {user_id}.")
     client.send_message(message.chat.id, "📥 Received your file! I will download and compress it now.")
     
     file_path = client.download_media(message.document.file_id)
-    compress_and_send_file(client, message.chat.id, file_path, message.document.file_name)
+    compress_and_send_file(client, message.chat.id, file_path, message.document.file_name, user_id)
 
 # Handle messages with an image URL
 @app.on_message(filters.text)
 def handle_url(client, message: Message):
-    logger.info(f"Received image URL from {message.from_user.id}: {message.text}")
-    # Notify the user about the received URL
+    user_id = message.from_user.id
+    logger.info(f"Received image URL from {user_id}: {message.text}")
     client.send_message(message.chat.id, "📥 Received your URL! I will download and compress the image now.")
     
-    compress_and_send_url(client, message.chat.id, message.text)
+    compress_and_send_url(client, message.chat.id, message.text, user_id)
 
-def compress_and_send_file(client, chat_id, file_path, original_file_name):
+def compress_and_send_file(client, chat_id, file_path, original_file_name, user_id):
     try:
         source = tinify.from_file(file_path)
-        
-        # Create a compressed filename
         base, ext = os.path.splitext(original_file_name)
         compressed_file_name = f"{base}_compressed{ext}"
-        
-        compressed_image_path = compressed_file_name  # Use the new file name
+        compressed_image_path = compressed_file_name
         source.to_file(compressed_image_path)
 
-        # Send the compressed image back to the user as a document
         with open(compressed_image_path, "rb") as file:
             client.send_document(chat_id=chat_id, document=file)
 
-        # Cleanup the compressed image file and the original file
+        compressed_size = os.path.getsize(compressed_image_path)
+        update_user_activity(user_id, compressed_size)
+
         os.remove(compressed_image_path)
         os.remove(file_path)
 
@@ -95,23 +88,21 @@ def compress_and_send_file(client, chat_id, file_path, original_file_name):
         client.send_message(chat_id, f"❌ An error occurred: {e}")
         logger.error(f"Error compressing file: {e}")
 
-def compress_and_send_url(client, chat_id, image_url):
+def compress_and_send_url(client, chat_id, image_url, user_id):
     try:
         source = tinify.from_url(image_url)
-        
-        # Create a compressed filename
-        base = image_url.split("/")[-1]  # Get the last part of the URL
-        ext = os.path.splitext(base)[-1]  # Extract the file extension
+        base = image_url.split("/")[-1]
+        ext = os.path.splitext(base)[-1]
         compressed_file_name = f"{base}_compressed{ext}"
-        
-        compressed_image_path = compressed_file_name  # Use the new file name
+        compressed_image_path = compressed_file_name
         source.to_file(compressed_image_path)
 
-        # Send the compressed image back to the user as a document
         with open(compressed_image_path, "rb") as file:
             client.send_document(chat_id=chat_id, document=file)
 
-        # Cleanup the compressed image file
+        compressed_size = os.path.getsize(compressed_image_path)
+        update_user_activity(user_id, compressed_size)
+
         os.remove(compressed_image_path)
 
         client.send_message(chat_id, "✅ Your image has been compressed and sent! You can download it now.")
