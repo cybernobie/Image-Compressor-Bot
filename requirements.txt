@@ -1,3 +1,4 @@
 pyrogram
 python-dotenv
 tinify
+pymongo
