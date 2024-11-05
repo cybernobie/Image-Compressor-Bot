@@ -51,7 +51,7 @@ app.add_handler(filters.command("admin"), admin_dashboard)
 app.add_handler(filters.command("stats"), usage_stats)
 app.add_handler(filters.command("convert"), convert_file_type)
 app.add_handler(filters.document, handle_file)
-app.add_handler(filters.text & ~filters.command, handle_url)
+app.add_handler(filters.text & ~filters.command(), handle_url)
 app.add_handler(filters.callback_query, handle_conversion_selection)
 
 # Run the bot
