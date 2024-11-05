@@ -2,6 +2,7 @@ import os
 import logging
 import tinify
 from pyrogram import Client, filters
+from pyrogram.handlers import CallbackQueryHandler  # Import CallbackQueryHandler
 from dotenv import load_dotenv
 from commands.start import start
 from commands.about import about
@@ -52,7 +53,7 @@ app.add_handler(filters.command("stats"), usage_stats)
 app.add_handler(filters.command("convert"), convert_file_type)
 app.add_handler(filters.document, handle_file)
 app.add_handler(filters.text & (filters.command != True), handle_url)  # Corrected line for handling URLs
-app.add_handler(filters.callback_query, handle_conversion_selection)  # Corrected line for callback queries
+app.add_handler(CallbackQueryHandler(handle_conversion_selection))  # Corrected line for callback queries
 
 # Run the bot
 if __name__ == "__main__":
