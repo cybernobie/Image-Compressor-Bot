@@ -2,6 +2,7 @@ import os
 import logging
 import tinify
 from pyrogram import Client, filters
+from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from dotenv import load_dotenv
 from commands.start import start
 from commands.about import about
@@ -45,14 +46,14 @@ def get_user_data(user_id, key):
 logger.info("Bot is starting...")
 
 # Register command handlers
-app.add_handler(filters.command("start"), start)
-app.add_handler(filters.command("about"), about)
-app.add_handler(filters.command("admin"), admin_dashboard)
-app.add_handler(filters.command("stats"), usage_stats)
-app.add_handler(filters.command("convert"), convert_file_type)
-app.add_handler(filters.document, handle_file)
-app.add_handler(filters.text & (filters.command != True), handle_url)  # Corrected line
-app.add_handler(filters.callback_query, handle_conversion_selection)
+app.add_handler(MessageHandler(start, filters.command("start")))
+app.add_handler(MessageHandler(about, filters.command("about")))
+app.add_handler(MessageHandler(admin_dashboard, filters.command("admin")))
+app.add_handler(MessageHandler(usage_stats, filters.command("stats")))
+app.add_handler(MessageHandler(convert_file_type, filters.command("convert")))
+app.add_handler(MessageHandler(handle_file, filters.document))
+app.add_handler(MessageHandler(handle_url, filters.text & ~filters.command))
+app.add_handler(CallbackQueryHandler(handle_conversion_selection))
 
 # Run the bot
 if __name__ == "__main__":
