@@ -70,7 +70,7 @@ def convert_handler(client, message):
 def document_handler(client, message):
     handle_file(client, message)
 
-@app.on_message(filters.text & ~filters.command)
+@app.on_message(filters.text & ~filters.command())
 def text_handler(client, message):
     handle_url(client, message)
 
