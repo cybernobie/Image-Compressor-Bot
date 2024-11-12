@@ -34,7 +34,7 @@ def update_user_activity(user_id, compressed_size):
         }
     )
     stats_collection.update_one(
-        {"date": datetime.utcnow().date()},
+        {"date": datetime.utcnow().date().isoformat()},
         {
             "$inc": {
                 "total_files_compressed": 1,
@@ -54,7 +54,7 @@ def get_stats():
     total_users = users_collection.count_documents({})
     total_files_compressed = list(stats_collection.aggregate([{"$group": {"_id": None, "total": {"$sum": "$total_files_compressed"}}}]))
     total_data_compressed = list(stats_collection.aggregate([{"$group": {"_id": None, "total": {"$sum": "$total_data_compressed"}}}]))
-    today_stats = stats_collection.find_one({"date": datetime.utcnow().date()})
+    today_stats = stats_collection.find_one({"date": datetime.utcnow().date().isoformat()})
     return {
         "total_users": total_users,
         "total_files_compressed": total_files_compressed[0]["total"] if total_files_compressed else 0,
