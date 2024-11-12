@@ -11,6 +11,7 @@ from commands.handle_url import handle_url
 from commands.admin_dashboard import admin_dashboard
 from commands.usage_stats import usage_stats
 from commands.convert_file_type import convert_file_type, handle_conversion_selection
+from utils import get_user_data, set_user_data  # Import the functions
 
 # Load environment variables from .env file
 load_dotenv()
@@ -30,17 +31,6 @@ tinify.key = TINIFY_API_KEY
 
 # Create a Pyrogram client
 app = Client("tinify_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
-
-# Temporary user data storage
-user_data = {}
-
-def set_user_data(user_id, key, value):
-    if user_id not in user_data:
-        user_data[user_id] = {}
-    user_data[user_id][key] = value
-
-def get_user_data(user_id, key):
-    return user_data.get(user_id, {}).get(key)
 
 # Log the bot startup
 logger.info("Bot is starting...")
