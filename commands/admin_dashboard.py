@@ -1,3 +1,4 @@
+import os  # Import the os module
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from mongodb.mongodb import get_stats
@@ -7,11 +8,11 @@ logger = logging.getLogger(__name__)
 
 def admin_dashboard(client: Client, message: Message):
     if message.from_user.id != int(os.getenv("ADMIN_ID")):
-        client.send_message(message.chat.id, "⚠️ You are not authorized to access the admin dashboard.")
+        client.send_message(message.chat.id, "You are not authorized to access the admin dashboard.")
         return
 
     stats = get_stats()
-    dashboard_text = (
+    dashboard_message = (
         f"📊 Admin Dashboard:\n"
         f"Total Users: {stats['total_users']}\n"
         f"Total Photos Compressed: {stats['total_files_compressed']}\n"
@@ -19,5 +20,5 @@ def admin_dashboard(client: Client, message: Message):
         f"Photos Compressed Today: {stats['today_files_compressed']}\n"
         f"Data Compressed Today: {stats['today_data_compressed']} bytes\n"
     )
-    client.send_message(message.chat.id, dashboard_text)
+    client.send_message(message.chat.id, dashboard_message)
     logger.info(f"Admin dashboard accessed by {message.from_user.id}.")
