@@ -2,7 +2,7 @@ import os
 import logging
 import tinify
 from pyrogram import Client, filters
-from pyrogram.handlers import CallbackQueryHandler  # Import CallbackQueryHandler
+from pyrogram.handlers import CallbackQueryHandler
 from dotenv import load_dotenv
 from commands.start import start
 from commands.about import about
@@ -46,14 +46,37 @@ def get_user_data(user_id, key):
 logger.info("Bot is starting...")
 
 # Register command handlers
-app.add_handler(filters.command("start"), start)
-app.add_handler(filters.command("about"), about)
-app.add_handler(filters.command("admin"), admin_dashboard)
-app.add_handler(filters.command("stats"), usage_stats)
-app.add_handler(filters.command("convert"), convert_file_type)
-app.add_handler(filters.document, handle_file)
-app.add_handler(filters.text & (filters.command != True), handle_url)  # Corrected line for handling URLs
-app.add_handler(CallbackQueryHandler(handle_conversion_selection))  # Corrected line for callback queries
+@app.on_message(filters.command("start"))
+def start_handler(client, message):
+    start(client, message)
+
+@app.on_message(filters.command("about"))
+def about_handler(client, message):
+    about(client, message)
+
+@app.on_message(filters.command("admin"))
+def admin_handler(client, message):
+    admin_dashboard(client, message)
+
+@app.on_message(filters.command("stats"))
+def stats_handler(client, message):
+    usage_stats(client, message)
+
+@app.on_message(filters.command("convert"))
+def convert_handler(client, message):
+    convert_file_type(client, message)
+
+@app.on_message(filters.document)
+def document_handler(client, message):
+    handle_file(client, message)
+
+@app.on_message(filters.text & ~filters.command)
+def text_handler(client, message):
+    handle_url(client, message)
+
+@app.on_callback_query()
+def callback_query_handler(client, callback_query):
+    handle_conversion_selection(client, callback_query)
 
 # Run the bot
 if __name__ == "__main__":
