@@ -22,6 +22,10 @@
     "MONGO_URI": {
       "description": "MongoDB connection URI",
       "required": true
+    },
+    "ADMIN_ID": {
+      "description": "Admin ID for accessing the dashboard",
+      "required": true
     }
   },
   "buildpacks": [
