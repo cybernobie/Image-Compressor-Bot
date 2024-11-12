@@ -2,7 +2,7 @@ import os
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from responses.compress_and_send_file import compress_and_send_file
-from bot import get_user_data, set_user_data  # Import the functions
+from utils import get_user_data, set_user_data  # Import the functions
 
 logger = logging.getLogger(__name__)
 
