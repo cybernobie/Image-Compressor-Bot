@@ -2,7 +2,7 @@ import os
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from responses.compress_and_send_file import compress_and_send_file
-import logging
+from bot import get_user_data, set_user_data  # Import the functions
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +13,6 @@ def handle_file(client: Client, message: Message):
     
     if file_extension not in [".webp", ".jpeg", ".jpg", ".png"]:
         client.send_message(message.chat.id, "⚠️ I only support WebP, JPEG, and PNG file formats. Please send a supported image file.")
-        logger.info(f"Unsupported file format received from {user_id}: {file_extension}")
         return
     
     selected_format = get_user_data(user_id, "selected_format")
